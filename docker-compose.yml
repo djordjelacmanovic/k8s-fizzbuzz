@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+    netcore-fizzbuzz:
+      build: 
+        context: ./netcore/NetCoreFizzBuzzApi
+        target: runtime
+      image: djordje.dev/netcore-fizzbuzz
+      environment:
+        FIZZBUZZ_REDIS_HOSTS: redis
+        VIRTUAL_HOST: localhost
+      depends_on:
+        - redis
+      expose:
+        - "80"
+        
+    redis:
+      image: redis:5.0.6-alpine
+      volumes:
+        - '.redis-data:/data'
+
+    nginx-proxy:
+      image: jwilder/nginx-proxy:alpine
+      ports:
+        - "8080:80"
+      volumes:
+        - /var/run/docker.sock:/tmp/docker.sock:ro
+    
