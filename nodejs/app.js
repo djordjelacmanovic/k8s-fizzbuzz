@@ -1,13 +1,15 @@
-var express = require('express');
-var logger = require('morgan');
+const express = require('express');
+const logger = require('morgan');
 
-var healthzRouter = require('./routes/healthz');
+const healthzRouter = require('./routes/healthz');
+const fizzbuzzRouter = require('./routes/fizzbuzz');
 
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 
 app.use('/healthz', healthzRouter);
+app.use('/api/v1/fizzbuzz', fizzbuzzRouter);
 
 module.exports = app;

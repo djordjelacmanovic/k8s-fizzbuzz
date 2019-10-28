@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,7 +34,11 @@ namespace NetCoreFizzBuzzApi
 
             services
                 .AddScoped<IFizzBuzzer, FizzBuzzer>()
-                .AddScoped<ICounter, RedisCounter>();
+                .AddScoped<ICounter, RedisCounter>(serviceProvider 
+                    => new RedisCounter(
+                        serviceProvider.GetService<IRedisClientFactory>(), 
+                        Environment.GetEnvironmentVariable("FIZZBUZZ_REDIS_COUNTER_KEY"))
+                    );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,10 +10,10 @@ namespace NetCoreFizzBuzzApi.Data {
 
         public IDatabaseAsync RedisDb => _redisClientFactory.GetDatabase();
 
-        public RedisCounter(IRedisClientFactory redisClientFactory, string persistedCounterKey = "fizzbuzz-counter")
+        public RedisCounter(IRedisClientFactory redisClientFactory, string persistedCounterKey = null)
         {
             _redisClientFactory = redisClientFactory;
-            _persistedCounterKey = persistedCounterKey;
+            _persistedCounterKey = persistedCounterKey ?? "fizzbuzz-counter";
         }
 
         public async Task<int> Increment() => (int) await RedisDb.StringIncrementAsync(_persistedCounterKey);

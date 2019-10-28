@@ -1,13 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const HealthController = require('../controllers/health-controller');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  return res.json( {
-    redis_up: true,
-    redis_ping_latency: 0,
-    error: null
-  });
-});
+router.get('/', (req, res, next) => new HealthController().get(req, res, next));
 
 module.exports = router;
