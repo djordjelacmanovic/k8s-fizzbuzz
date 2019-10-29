@@ -1,4 +1,5 @@
 const { performance } = require('perf_hooks');
+const { RedisError } = require('redis-errors');
 
 module.exports = class HealthController {
   constructor(){
@@ -16,10 +17,12 @@ module.exports = class HealthController {
       });
     } catch (error) {
       console.error(error);
-      return res.status(503).json({
-        redis_up: false,
-        error: error
-      });
+      if(error instanceof RedisError) {
+        return res.status(503).json({
+          redis_up: false,
+          error: error.message
+        });
+      } else throw error;
     }
   }
 }

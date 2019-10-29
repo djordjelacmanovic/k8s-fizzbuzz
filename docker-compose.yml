@@ -1,7 +1,6 @@
 version: '3.4'
 
 services:
-
     netcore-fizzbuzz:
       build: 
         context: ./netcore/NetCoreFizzBuzzApi
@@ -18,6 +17,17 @@ services:
     nodejs-fizzbuzz:
       build: ./nodejs
       image: djordje.dev/nodejs-fizzbuzz
+      environment:
+        FIZZBUZZ_REDIS_HOSTS: redis
+        VIRTUAL_HOST: localhost
+      depends_on:
+        - redis
+      expose:
+        - "3000"
+
+    rails-fizzbuzz:
+      build: ./rails
+      image: djordje.dev/rails-fizzbuzz
       environment:
         FIZZBUZZ_REDIS_HOSTS: redis
         VIRTUAL_HOST: localhost

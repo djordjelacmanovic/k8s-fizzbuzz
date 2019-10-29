@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 
 namespace NetCoreFizzBuzzApi.Models {
+
     public class FizzBuzzResult {
 
         [JsonPropertyName("value")]

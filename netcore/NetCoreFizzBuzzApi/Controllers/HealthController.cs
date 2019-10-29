@@ -1,9 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreFizzBuzzApi.Data;
 using NetCoreFizzBuzzApi.Models;
-using NetCoreFizzBuzzApi.Services;
+using StackExchange.Redis;
 
 [ApiController]
 [Route("healthz")]
@@ -23,7 +22,7 @@ public class HealthController : ControllerBase {
                 RedisUp = true,
                 RedisPingLatency = (await _redisClientFactory.GetDatabase().PingAsync()).Milliseconds
             });
-        } catch (Exception e) {
+        } catch (RedisException e) {
             return StatusCode(503, new HealthResult {
                 RedisUp = false,
                 RedisPingLatency = null,

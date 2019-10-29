@@ -9,6 +9,10 @@ module.exports = class FizzBuzzer {
     getFizzBuzzedString(number){
         return Object.entries(this._rules)
             .filter(([_, predicate]) => predicate(number))
-            .map(([text]) => text).join('') || number;
+            .map(([text]) => text).join('') || number.toString();
+    }
+
+    static divisibleBy(divisor){
+        return (number) => number % divisor == 0;
     }
 }
