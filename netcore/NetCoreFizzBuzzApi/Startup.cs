@@ -23,6 +23,9 @@ namespace NetCoreFizzBuzzApi
         {
             services.AddControllers();
             services.AddLogging();
+            services.AddCors(opts => opts.AddDefaultPolicy(builder => {
+                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            }));
             
             RegisterDependencies(services);
         }
@@ -49,11 +52,9 @@ namespace NetCoreFizzBuzzApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

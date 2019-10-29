@@ -10,6 +10,7 @@ class Api::V1::FizzbuzzController < ApplicationController
 
   def reset
     Redis.current.del(redis_fizzbuzz_key)
+    render nothing: true, status: :ok
   end
 
   private

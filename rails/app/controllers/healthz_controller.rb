@@ -13,7 +13,7 @@ class HealthzController < ApplicationController
       render json: {
         redis_up: false,
         error: exception.message,
-      }
+      }, status: :service_unavailable
     end
   end
 end

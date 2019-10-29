@@ -18,7 +18,7 @@ module.exports = class FizzBuzzController {
 
   async delete(_, res){
     await this._redis.del(this.redisCounterKey);
-    return res.sendStatus(200);
+    return res.status(204).send();
   }
 
   get redisCounterKey(){

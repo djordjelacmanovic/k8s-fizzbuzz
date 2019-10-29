@@ -25,8 +25,10 @@ namespace NetCoreFizzBuzzApi.Controllers.Api
             => CreateFizzBuzzResult(await Counter.Increment());
 
         [HttpDelete]
-        public async Task Delete()
-            => await Counter.Reset();
+        public async Task<IActionResult> Delete(){
+            await Counter.Reset();
+            return NoContent();
+        }
 
         private FizzBuzzResult CreateFizzBuzzResult(int number)
             => new FizzBuzzResult { 
